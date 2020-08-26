@@ -80,13 +80,12 @@ public class PlaceBlockEvent implements Listener{
 				            } 
 					break;
 					}
-					
+					ItemStack item = player.getItemInHand();
+					item.setAmount(item.getAmount() - 1);
+					player.setItemInHand(item);
 				} else {
 					player.sendMessage(Message.REMOVED_LUCKYCUBE.getMSG());
 				}
-				ItemStack item = player.getItemInHand();
-				item.setAmount(item.getAmount() - 1);
-				player.setItemInHand(item);
 			}
 		}
 	}

@@ -66,8 +66,8 @@ public class CustomLuckyBlocks {
 	 */
 	static public ArrayList<LuckyCube> getLuckyCubes(){
     	ArrayList<LuckyCube> list = new ArrayList<LuckyCube>();
-        	if (config.getConfigurationSection("LuckyBlocks") == null) return new ArrayList<LuckyCube>();
-        	for (String path:config.getConfigurationSection("LuckyBlocks").getKeys(false)) {
+        	if (config.getConfigurationSection("LuckyCubes") == null) return new ArrayList<LuckyCube>();
+        	for (String path:config.getConfigurationSection("LuckyCubes").getKeys(false)) {
         		int id = Integer.valueOf(path);
         		list.add(getLuckyCubeByID(id));
         	}
@@ -79,7 +79,7 @@ public class CustomLuckyBlocks {
     @SuppressWarnings("deprecation")
 	static public void addLuckyCube(LuckyCube lucky,HashMap<Character,ItemStack> map) {
     		config = YamlConfiguration.loadConfiguration(file);
-    		String path = "LuckyBlocks." + lucky.getId();
+    		String path = "LuckyCubes." + lucky.getId();
     		
     		config.set(path + ".title", lucky.getTitle());
     		config.set(path + ".animationType", lucky.getAnimationType().toString());
@@ -119,7 +119,7 @@ public class CustomLuckyBlocks {
     
     @SuppressWarnings({ "deprecation", "unchecked" })
 	static public LuckyCube getLuckyCubeByID(int id) {
-		String path = "LuckyBlocks." + id;
+		String path = "LuckyCubes." + id;
 		
 		String title = config.getString(path + ".title");
 		AnimationType type = AnimationType.valueOf(config.getString(path + ".animationType").toUpperCase());
@@ -166,7 +166,7 @@ public class CustomLuckyBlocks {
     }
     	
     static public boolean hasLuckyCube(int id) {
-    	if (config.get("LuckyBlocks." + id) != null) {
+    	if (config.get("LuckyCubes." + id) != null) {
     		return true;
     	}
     	return false;
