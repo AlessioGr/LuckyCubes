@@ -25,7 +25,7 @@ public class CustomLuckyBlocks {
 	private static File file;
 	private static YamlConfiguration config;
 	public CustomLuckyBlocks(Main main) {
-  	  file = new File(main.getDataFolder(), "LuckyBlocks.yml");
+  	  file = new File(main.getDataFolder(), "LuckyCubes.yml");
   	 if (!file.exists()) {
   		 try {
 				 file.createNewFile();
