@@ -24,7 +24,7 @@ public class LuckyCubesCommand implements CommandExecutor {
 			case "addluckycube":
 				if (sender instanceof Player) {
 					Player player = (Player) sender;
-					if (player.hasPermission("FancyBags.Admin") || player.hasPermission("FancyBags." + args[0].toString())) {
+					if (player.hasPermission("LuckyCubes.Admin") || player.hasPermission("LuckyCubes." + args[0].toString().toLowerCase())) {
 						Main.creatingLuckyCube.put(player.getUniqueId(), new LuckyCube(0, "", null, "", new ArrayList<String>(), null, null));
 						ConversationFactory factory = new ConversationFactory(Main.getInstance());
 						Conversation conversation = factory.withFirstPrompt(new IdPrompt()).withLocalEcho(true).buildConversation(player);
@@ -37,7 +37,7 @@ public class LuckyCubesCommand implements CommandExecutor {
 			break;
 			
 			case "reload":
-				if (sender.hasPermission("LuckyCubes.Admin") || sender.hasPermission("LuckyCubes." + args[0].toString())) {
+				if (sender.hasPermission("LuckyCubes.Admin") || sender.hasPermission("LuckyCubes." + args[0].toString().toLowerCase())) {
 					CustomLuckyBlocks.reloadConfig();
 					Main.getInstance().saveConfig();
 					Main.getInstance().reloadConfig();
@@ -50,7 +50,7 @@ public class LuckyCubesCommand implements CommandExecutor {
 			break;
 			
 			case "give":
-				if (sender.hasPermission("LuckyCubes.Admin") || sender.hasPermission("LuckyCubes." + args[0].toString())) {
+				if (sender.hasPermission("LuckyCubes.Admin") || sender.hasPermission("LuckyCubes." + args[0].toString().toLowerCase())) {
 					if (args.length == 4) {
 						if (Bukkit.getServer().getOnlinePlayers().contains(Bukkit.getPlayer(args[1]))) {
 							if (isInt(args[2])) {
@@ -93,7 +93,7 @@ public class LuckyCubesCommand implements CommandExecutor {
 			break;
 			
 			case "help":
-				if (sender.hasPermission("LuckyCubes.Admin") || sender.hasPermission("LuckyCubes." + args[0].toString())) {
+				if (sender.hasPermission("LuckyCubes.Admin") || sender.hasPermission("LuckyCubes." + args[0].toString().toLowerCase())) {
 					sender.sendMessage(Utils.color("&f----------[LuckyCubes]----------"));
 					sender.sendMessage(ChatColor.WHITE + "/lc give {player} {luckycube_id}");
 					sender.sendMessage(ChatColor.WHITE + "");
