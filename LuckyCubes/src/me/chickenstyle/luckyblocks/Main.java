@@ -230,15 +230,15 @@ public class Main extends JavaPlugin{
 				    	Bukkit.getVersion().contains("1.16")) {
 						recipes.add(lucky.getRecipe().getKey());
 					}
-					recipesAmount++;
 				}
+				recipesAmount++;
 
 			}
 			
 			if (recipesAmount != 0) {
-				getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "LuckyCubes >>> loaded " + recipesAmount + " recipes!");
+				getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "LuckyCubes >>> loaded " + recipesAmount + " luckycubes!");
 			} else {
-				getServer().getConsoleSender().sendMessage(ChatColor.RED + "LuckyCubes >>> No recipes detected!");
+				getServer().getConsoleSender().sendMessage(ChatColor.RED + "LuckyCubes >>> No luckycubes detected!");
 			}
 		} else {
 			getServer().getConsoleSender().sendMessage(ChatColor.RED + "LuckyCubes >>> No recipes detected!");

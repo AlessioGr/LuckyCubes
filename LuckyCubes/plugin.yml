@@ -1,6 +1,6 @@
 main: me.chickenstyle.luckyblocks.Main
 name: LuckyCubes
-version: 1.0.2
+version: 1.0.3
 description: implements cool luckyblocks to the game 
 api-version: 1.13
 softdepend: [WorldGuard]
