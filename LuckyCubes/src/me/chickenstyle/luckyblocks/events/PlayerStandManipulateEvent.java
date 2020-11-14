@@ -11,7 +11,7 @@ import me.chickenstyle.luckyblocks.Main;
 public class PlayerStandManipulateEvent implements Listener{
 	@EventHandler
 	public void onPlayerManipulate(PlayerArmorStandManipulateEvent e) {
-		if (Main.opening.contains(e.getPlayer().getUniqueId())) {
+		if (Main.stands.contains(e.getRightClicked())) {
 			e.setCancelled(true);
 		}
 	}
