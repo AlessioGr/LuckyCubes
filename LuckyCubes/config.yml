@@ -2,7 +2,7 @@ messages:
   noPermission: "&4You dont have permission to use this command!"
   placeOnGround: "&cTo open this luckycube you need to place it on the ground"
   removedLuckyCube: "&cThis luckycube has been removed, you cannot use it!"
-  giveMessage: "&6{player} &agave you &6{backpack}"
+  giveMessage: "&6{player} &agave you &6{amount} &ax&6{luckycube}"
   getReward: "&7You got &6{amount} &ax&6{item}"
   cooldown: "&cYou have to wait &6{seconds} &cto open another luckycube!"
   

@@ -67,7 +67,7 @@ public class LuckyCubesCommand implements CommandExecutor {
 										}
 										
 										target.sendMessage(Utils.color(Message.GIVE_MESSAGE.getMSG().replace("{player}", sender.getName())
-												.replace("{backpack}", cube.getTitle())));
+												.replace("{amount}", args[3]).replace("{luckycube}", cube.getTitle())));
 										
 										sender.sendMessage(Utils.color("&aYou gave &6" + cube.getTitle() + " &ato &6" + target.getDisplayName()));
 										return true;
