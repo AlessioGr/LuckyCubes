@@ -1,5 +1,6 @@
 package me.chickenstyle.luckyblocks;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -58,8 +59,12 @@ public class Main extends JavaPlugin{
 		creatingLuckyCube = new HashMap<UUID,LuckyCube>();
 		stands = new HashSet<ArmorStand>();
 		
-		this.getConfig().options().copyDefaults();
-	    saveDefaultConfig();
+		File config = new File(getDataFolder(),"config.yml");
+
+		if (!config.exists()) {
+			this.getConfig().options().copyDefaults();
+		    saveDefaultConfig();
+		}
 	    new CustomLuckyBlocks(this);
 		
 		//Loads proper data :)

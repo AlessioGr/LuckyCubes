@@ -9,7 +9,8 @@ public enum Message {
     GIVE_MESSAGE(color(getString("messages.giveMessage"))),
     GET_REWARD(color(getString("messages.getReward"))),
     COOLDOWN(color(getString("messages.cooldown"))),
-    PLACE_ON_GROUND(color(getString("messages.placeOnGround")));
+    PLACE_ON_GROUND(color(getString("messages.placeOnGround"))),
+	DISABLE_COMMAND(color(getString("messages.disableCommandUse")));
     private String error;
 
     Message(String error) {

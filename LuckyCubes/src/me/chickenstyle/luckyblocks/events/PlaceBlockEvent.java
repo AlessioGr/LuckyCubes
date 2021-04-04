@@ -2,15 +2,19 @@ package me.chickenstyle.luckyblocks.events;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
 import org.bukkit.Material;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.world.ChunkUnloadEvent;
 import org.bukkit.inventory.ItemStack;
 
 import me.chickenstyle.luckyblocks.LuckyCube;
@@ -23,12 +27,41 @@ import me.chickenstyle.luckyblocks.guis.SpinningGui;
 
 public class PlaceBlockEvent implements Listener{
 	
+	@EventHandler
+	public void onPlayerCommand(PlayerCommandPreprocessEvent e) {
+		if (Main.getInstance().getConfig().getBoolean("disableCommandsOnOpen")) {
+			if (Main.opening.contains(e.getPlayer().getUniqueId())) {
+				e.setCancelled(true);
+				e.getPlayer().sendMessage(Message.DISABLE_COMMAND.getMSG());
+			}
+		}
+	}
+	
+	@EventHandler
+	public void onChunkUnload(ChunkUnloadEvent e) {
+		List<Entity> ents = new ArrayList<>();
+		for (Entity ent:e.getChunk().getEntities()) {
+			if (Main.stands.contains(ent)) {
+				ent.remove();
+				ents.add(ent);
+			}
+		}
+		
+		ents.forEach(ent -> {
+			Main.stands.remove(ent);
+		});
+		
+	}
+	
+	
 	HashMap<UUID,Long> cooldown = new HashMap<>();
 	
 	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onBlockPlace(PlayerInteractEvent e) {
 		Player player = e.getPlayer();
+		
+		if (e.getAction() != Action.RIGHT_CLICK_AIR && e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
 		if (player.getItemInHand() != null && !player.getItemInHand().getType().equals(Material.AIR)) {
 			if (Main.getVersionHandler().isLuckyBlock(player.getItemInHand())) {
 				e.setCancelled(true);
