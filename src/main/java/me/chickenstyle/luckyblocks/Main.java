@@ -103,6 +103,7 @@ public class Main extends JavaPlugin{
 			isValid = false;
 			getServer().getConsoleSender().sendMessage(parse("<RED>LuckyCubes >>> This version isn't supported!"));
 			getServer().getConsoleSender().sendMessage(parse("<YELLOW>LuckyCubes >>> LuckyCubes will run anyways. However, I cannot guarantee that it will work."));
+			versionHandler = new Handler_1_18_R1();
 		}
 		if (isValid) {
 			getServer().getConsoleSender().sendMessage(parse("<GREEN>LuckyCubes >>> NMS Version Detected: " + version));
