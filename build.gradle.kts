@@ -38,7 +38,7 @@ dependencies {
 
 
 
-val shadowPath = "rocks.gravili.notquests"
+val shadowPath = "me.chickenstyle.luckyblocks.shadow"
 tasks.withType<ShadowJar> {
 
     minimize()
