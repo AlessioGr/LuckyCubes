@@ -33,23 +33,23 @@ public class Utils {
 	}
 	
 	public static ItemStack getVersionSkull() {
-		return new ItemStack(Material.valueOf("PLAYER_HEAD"));
+		return new ItemStack(Material.PLAYER_HEAD);
     }
     
     public static Sound getChestOpenSound() {
-        return Sound.valueOf("BLOCK_CHEST_OPEN");
+        return Sound.BLOCK_CHEST_OPEN;
     }
     
     public static Sound getChestCloseSound() {
-		return Sound.valueOf("BLOCK_CHEST_CLOSE");
+		return Sound.BLOCK_CHEST_CLOSE;
     }
     
     public static Sound getPlingSound() {
-        return Sound.valueOf("BLOCK_NOTE_BLOCK_PLING");
+        return Sound.BLOCK_NOTE_BLOCK_PLING;
     }
     
 	public static ItemStack getGrayVersionGlass() {
-    	ItemStack glass = new ItemStack(Material.valueOf("GRAY_STAINED_GLASS_PANE"));
+    	ItemStack glass = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
         
         ItemMeta meta = glass.getItemMeta();
         meta.displayName(Component.text(" "));
@@ -58,7 +58,7 @@ public class Utils {
     }
     
 	public static ItemStack getGreenVersionGlass() {
-    	ItemStack glass = new ItemStack(Material.valueOf("GREEN_STAINED_GLASS_PANE"));
+    	ItemStack glass = new ItemStack(Material.GREEN_STAINED_GLASS_PANE);
 
         
         ItemMeta meta = glass.getItemMeta();
