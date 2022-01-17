@@ -5,7 +5,7 @@ import me.chickenstyle.luckyblocks.events.ClickInventoryEvent;
 import me.chickenstyle.luckyblocks.events.CloseInventory;
 import me.chickenstyle.luckyblocks.events.PlaceBlockEvent;
 import me.chickenstyle.luckyblocks.events.PlayerStandManipulateEvent;
-import me.chickenstyle.luckyblocks.versions.Handler_1_18_R1;
+import me.chickenstyle.luckyblocks.versions.Handler_1_17_R1;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
@@ -97,13 +97,13 @@ public class Main extends JavaPlugin{
 		String version = Bukkit.getServer().getClass().getPackage().getName();
 		version = version.substring(version.lastIndexOf(".") + 1);
 		boolean isValid = true;
-		if ("v1_18_R1".equals(version)) {
-			versionHandler = new Handler_1_18_R1();
+		if ("v1_17_R1".equals(version)) {
+			versionHandler = new Handler_1_17_R1();
 		} else {
 			isValid = false;
 			getServer().getConsoleSender().sendMessage(parse("<RED>LuckyCubes >>> This version isn't supported!"));
 			getServer().getConsoleSender().sendMessage(parse("<YELLOW>LuckyCubes >>> LuckyCubes will run anyways. However, I cannot guarantee that it will work."));
-			versionHandler = new Handler_1_18_R1();
+			versionHandler = new Handler_1_17_R1();
 		}
 		if (isValid) {
 			getServer().getConsoleSender().sendMessage(parse("<GREEN>LuckyCubes >>> NMS Version Detected: " + version));
@@ -177,7 +177,7 @@ public class Main extends JavaPlugin{
 	}
 
 	public final Component parse(final String miniMessageString){
-		return miniMessage.parse(miniMessageString);
+		return miniMessage.deserialize(miniMessageString);
 	}
 
 }

@@ -5,10 +5,10 @@ import net.minecraft.nbt.CompoundTag;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.World;
-import org.bukkit.craftbukkit.v1_18_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_17_R1.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 
-public class Handler_1_18_R1 implements NMSHandler {
+public class Handler_1_17_R1 implements NMSHandler {
 	
 	@Override
 	public ItemStack addLuckyBlockID(ItemStack item,int id) {

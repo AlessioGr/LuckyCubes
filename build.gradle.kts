@@ -11,7 +11,7 @@ plugins {
 group = "me.chickenstyle.luckyblocks"
 version = "1.0.7"
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+    toolchain.languageVersion.set(JavaLanguageVersion.of(16))
 }
 
 
@@ -26,7 +26,7 @@ repositories {
     }
 }
 dependencies {
-    paperDevBundle("1.18.1-R0.1-SNAPSHOT")
+    paperDevBundle("1.17.1-R0.1-SNAPSHOT")
 
     //Shaded
     implementation("net.kyori:adventure-text-minimessage:4.10.0-SNAPSHOT") {
@@ -60,7 +60,7 @@ tasks {
 
     compileJava {
         options.encoding = Charsets.UTF_8.name()
-        options.release.set(17)
+        options.release.set(16)
     }
     javadoc {
         options.encoding = Charsets.UTF_8.name()
