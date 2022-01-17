@@ -177,7 +177,7 @@ public class Main extends JavaPlugin{
 	}
 
 	public final Component parse(final String miniMessageString){
-		return miniMessage.parse(miniMessageString);
+		return miniMessage.deserialize(miniMessageString);
 	}
 
 }
