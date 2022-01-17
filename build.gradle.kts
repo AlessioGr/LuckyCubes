@@ -73,7 +73,7 @@ tasks {
 bukkit {
     name = "LuckyCubes"
     main = "me.chickenstyle.luckyblocks.Main"
-    apiVersion = "1.18"
+    apiVersion = "1.17"
     authors = listOf("ChickenStyle")
     version = "1.0.7"
     description = "implements cool luckyblocks to the game"
