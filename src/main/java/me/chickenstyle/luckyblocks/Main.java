@@ -5,7 +5,7 @@ import me.chickenstyle.luckyblocks.events.ClickInventoryEvent;
 import me.chickenstyle.luckyblocks.events.CloseInventory;
 import me.chickenstyle.luckyblocks.events.PlaceBlockEvent;
 import me.chickenstyle.luckyblocks.events.PlayerStandManipulateEvent;
-import me.chickenstyle.luckyblocks.versions.Handler_1_18_R1;
+import me.chickenstyle.luckyblocks.versions.Handler_1_18_R2;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
@@ -26,7 +26,7 @@ public class Main extends JavaPlugin{
 	public static Set<UUID> opening;
 	public static HashMap<UUID,LuckyCube> creatingLuckyCube;
 	private static NMSHandler versionHandler;  
-	private static Main instance;;
+	private static Main instance;
 	private MiniMessage miniMessage;
 
 
@@ -41,9 +41,9 @@ public class Main extends JavaPlugin{
 		getServerVersion();
 		
 		instance = this;
-		opening = new HashSet<UUID>();
-		creatingLuckyCube = new HashMap<UUID,LuckyCube>();
-		stands = new HashSet<ArmorStand>();
+		opening = new HashSet<>();
+		creatingLuckyCube = new HashMap<>();
+		stands = new HashSet<>();
 		
 		File config = new File(getDataFolder(),"config.yml");
 
@@ -54,7 +54,7 @@ public class Main extends JavaPlugin{
 	    new CustomLuckyBlocks(this);
 		
 		//Loads proper data :)
-		recipes = new ArrayList<NamespacedKey>();
+		recipes = new ArrayList<>();
 		
 		
 		//Getting data
@@ -66,8 +66,8 @@ public class Main extends JavaPlugin{
 		loadListeners();
 		loadRecipes();
 		
-		getCommand("luckycubes").setExecutor(new LuckyCubesCommand());
-		getCommand("luckycubes").setTabCompleter(new LuckyTab());
+		Objects.requireNonNull(getCommand("luckycubes")).setExecutor(new LuckyCubesCommand());
+		Objects.requireNonNull(getCommand("luckycubes")).setTabCompleter(new LuckyTab());
 		
 		getServer().getConsoleSender().sendMessage(Utils.color("&aLuckyCubes plugin has been enabled!"));
 		
@@ -85,9 +85,9 @@ public class Main extends JavaPlugin{
 
 
 		ArrayList<LuckyCube> luckyBlocks = CustomLuckyBlocks.getLuckyCubes();
-		if (!luckyBlocks.isEmpty() && luckyBlocks != null) {
-			for (LuckyCube pack:luckyBlocks) {
-				removeRecipe(pack.getRecipe());
+		if (!luckyBlocks.isEmpty()) {
+			for (LuckyCube ignored :luckyBlocks) {
+				removeRecipe();
 			}
 		}
 	}
@@ -97,14 +97,12 @@ public class Main extends JavaPlugin{
 		String version = Bukkit.getServer().getClass().getPackage().getName();
 		version = version.substring(version.lastIndexOf(".") + 1);
 		boolean isValid = true;
-		if ("v1_18_R1".equals(version)) {
-			versionHandler = new Handler_1_18_R1();
-		} else {
+		if (!"v1_18_R2".equals(version)) {
 			isValid = false;
 			getServer().getConsoleSender().sendMessage(parse("<RED>LuckyCubes >>> This version isn't supported!"));
 			getServer().getConsoleSender().sendMessage(parse("<YELLOW>LuckyCubes >>> LuckyCubes will run anyways. However, I cannot guarantee that it will work."));
-			versionHandler = new Handler_1_18_R1();
 		}
+		versionHandler = new Handler_1_18_R2();
 		if (isValid) {
 			getServer().getConsoleSender().sendMessage(parse("<GREEN>LuckyCubes >>> NMS Version Detected: " + version));
 		}
@@ -122,16 +120,16 @@ public class Main extends JavaPlugin{
 	public void loadRecipes() {
 		ArrayList<LuckyCube> luckyBlocks = CustomLuckyBlocks.getLuckyCubes();
 
-		if (!luckyBlocks.isEmpty() && luckyBlocks != null) {
+		if (!luckyBlocks.isEmpty()) {
 			for (LuckyCube lucky: luckyBlocks) {
-				if (lucky.getRecipe() != null) removeRecipe(lucky.getRecipe());
+				if (lucky.getRecipe() != null) removeRecipe();
 			}
 
 		}
 		
 		
 
-		if (!luckyBlocks.isEmpty() && luckyBlocks != null) {
+		if (!luckyBlocks.isEmpty()) {
 			int recipesAmount = 0;
 			for (LuckyCube lucky:luckyBlocks) {
 				
@@ -154,14 +152,13 @@ public class Main extends JavaPlugin{
 		}
 	}
 	
-	public void removeRecipe(ShapedRecipe inputRecipe){
+	public void removeRecipe(){
         Iterator<Recipe> it = getServer().recipeIterator();
        
         while(it.hasNext()){
             Recipe itRecipe = it.next();
-            if(itRecipe instanceof ShapedRecipe){
-                ShapedRecipe itShaped = (ShapedRecipe) itRecipe;
-                if (recipes.contains(itShaped.getKey())) {
+            if(itRecipe instanceof ShapedRecipe itShaped){
+				if (recipes.contains(itShaped.getKey())) {
                 	it.remove();
                 }
             }

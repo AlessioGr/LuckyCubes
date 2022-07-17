@@ -105,7 +105,8 @@ public class Utils {
     public static ItemStack createCustomSkull(String displayName, String texture,ArrayList<String> lore) {
     	ArrayList<String> coloredLore = new ArrayList<>();
     	ItemStack skull = createCustomSkull(displayName, texture);
-    	ItemMeta meta = skull.getItemMeta();
+		assert skull != null;
+		ItemMeta meta = skull.getItemMeta();
     	for (String str:lore) {
     		coloredLore.add(color(str));
     	}
@@ -165,10 +166,10 @@ public class Utils {
     }
     
 	public static String arrayToString(String[] arr) {
-		String str = "";
+		StringBuilder str = new StringBuilder();
 		for (String chr:arr) {
-			str = str + chr;
+			str.append(chr);
 		}
-		return str;
+		return str.toString();
 	}
 }

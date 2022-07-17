@@ -22,6 +22,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Random;
 
 
@@ -30,7 +31,7 @@ public class ClickInventoryEvent implements Listener{
 	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onClickInventory(InventoryClickEvent e) {
-		if (e.getInventory() == null) return;
+		e.getInventory();
 		Player player = (Player) e.getWhoClicked();
 
 		
@@ -44,7 +45,7 @@ public class ClickInventoryEvent implements Listener{
 				e.setCancelled(true);
 			}
 			if (e.getCurrentItem().equals(Utils.getGreenVersionGlass())) {
-				ArrayList<Integer> emptySlots = new ArrayList<Integer>();
+				ArrayList<Integer> emptySlots = new ArrayList<>();
 				emptySlots.add(12);
 				emptySlots.add(13);
 				emptySlots.add(14);
@@ -55,10 +56,10 @@ public class ClickInventoryEvent implements Listener{
 				emptySlots.add(31);
 				emptySlots.add(32);
 
-				ArrayList<ItemStack> materials = new ArrayList<ItemStack>();
+				ArrayList<ItemStack> materials = new ArrayList<>();
 				int airAmount = 0;
 				for (Integer i:emptySlots) {
-					if (e.getInventory().getItem(i) == null || e.getInventory().getItem(i).getType().equals(Material.AIR)) {
+					if (e.getInventory().getItem(i) == null || Objects.requireNonNull(e.getInventory().getItem(i)).getType().equals(Material.AIR)) {
 						materials.add(new ItemStack(Material.AIR));
 						airAmount++;
 					} else {
@@ -69,7 +70,7 @@ public class ClickInventoryEvent implements Listener{
 
 				if (airAmount == 9) {
 					cube.setRecipe(null);
-					CustomLuckyBlocks.addLuckyCube(cube,new HashMap<Character,ItemStack>());
+					CustomLuckyBlocks.addLuckyCube(cube,new HashMap<>());
 					Main.creatingLuckyCube.remove(player.getUniqueId());
 					player.sendMessage(ChatColor.GREEN + "LuckyCube has been created! type /lc reload to load the recipe!");
 					e.setCancelled(true);
@@ -77,7 +78,7 @@ public class ClickInventoryEvent implements Listener{
 					return;
 				}
 				
-				HashMap<Character,ItemStack> ingredients = new HashMap<Character,ItemStack>();
+				HashMap<Character,ItemStack> ingredients = new HashMap<>();
 				for (ItemStack mat:materials) {
 					boolean contains = false;	
 					do {
@@ -87,12 +88,13 @@ public class ClickInventoryEvent implements Listener{
 							if (!ingredients.containsKey(symbol)) {
 								boolean containsMaterial = false;
 								for (Entry<Character, ItemStack> entry : ingredients.entrySet()) {
-								    if (entry.getValue().equals(mat)) {
-								    	containsMaterial = true;
-								    }
+									if (entry.getValue().equals(mat)) {
+										containsMaterial = true;
+										break;
+									}
 								}
 								
-								if (containsMaterial == false) {
+								if (!containsMaterial) {
 									ingredients.put(symbol, mat);
 								} 
 								contains = true;
@@ -102,11 +104,11 @@ public class ClickInventoryEvent implements Listener{
 							contains = true;
 						}
 						
-					} while (contains == false);
+					} while (!contains);
 				}
 				
 				char matAir = 0;
-				ArrayList<Character> symbols = new ArrayList<Character>(); 
+				ArrayList<Character> symbols = new ArrayList<>();
 				for (ItemStack mat:materials) {
 					for (Entry<Character, ItemStack> entry : ingredients.entrySet()) {
 					    if (mat.equals(entry.getValue())) {
@@ -136,7 +138,7 @@ public class ClickInventoryEvent implements Listener{
 				
 				for (Entry<Character, ItemStack> entry : ingredients.entrySet()) {
 					if (!entry.getValue().getType().equals(Material.AIR) && !(entry.getValue() == null)) {
-						recipe.setIngredient(entry.getKey(), entry.getValue().getData());	
+						recipe.setIngredient(entry.getKey(), Objects.requireNonNull(entry.getValue().getData()));
 					}
 				}
 				
@@ -158,7 +160,7 @@ public class ClickInventoryEvent implements Listener{
 
 			if (e.getSlot() == 53) {
 				e.setCancelled(true);
-				ArrayList<ItemStack> items = new ArrayList<ItemStack>();
+				ArrayList<ItemStack> items = new ArrayList<>();
 				ItemStack[] contents = e.getView().getTopInventory().getContents();
 				for (int i = 0;i < 53;i++) {
 					if (contents[i] != null && !contents[i].getType().equals(Material.AIR)) {
@@ -231,14 +233,11 @@ public class ClickInventoryEvent implements Listener{
 	    
 	    
 	    if (first.hasLore() && second.hasLore()) {
-		    if (!first.getLore().equals(second.getLore())) 
+		    if (!Objects.equals(first.getLore(), second.getLore()))
 		    	return false;
 	    }
-	    
-	    if (!first.getEnchants().equals(second.getEnchants()))
-	    	return false;  
-	    
-	    return true;
+
+		return first.getEnchants().equals(second.getEnchants());
 	}
 	
 }

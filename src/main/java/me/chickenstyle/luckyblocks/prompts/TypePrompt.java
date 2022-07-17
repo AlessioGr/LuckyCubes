@@ -8,11 +8,12 @@ import org.bukkit.conversations.ConversationContext;
 import org.bukkit.conversations.Prompt;
 import org.bukkit.conversations.StringPrompt;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 public class TypePrompt extends StringPrompt{
 	
 	@Override
-	public String getPromptText(ConversationContext context) {
+	public @NotNull String getPromptText(@NotNull ConversationContext context) {
 		return Utils.color("&7Enter an animation type for the luckycube! (GUI/SPINNING/NONE)");
 	}
 	

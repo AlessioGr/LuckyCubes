@@ -7,18 +7,19 @@
     import org.bukkit.conversations.NumericPrompt;
     import org.bukkit.conversations.Prompt;
     import org.bukkit.entity.Player;
+	import org.jetbrains.annotations.NotNull;
 
-public class IdPrompt extends NumericPrompt{
+	public class IdPrompt extends NumericPrompt{
 
 	@Override
-	public String getPromptText(ConversationContext context) {
+	public @NotNull String getPromptText(@NotNull ConversationContext context) {
 		return Utils.color("&7Lets start creating new LuckyCube! \nEnter a &6unique &7LuckyCube id. (Should be a number!)");
 			
 	}
 
 	@Override
 	protected Prompt acceptValidatedInput(ConversationContext context, Number number) {
-		int id = Integer.valueOf(number.toString());
+		int id = Integer.parseInt(number.toString());
 		Player player = (Player) context.getForWhom();
 		player.sendMessage(Utils.color("&a" + id));
 		LuckyCube pack = Main.creatingLuckyCube.get(player.getUniqueId());
@@ -28,7 +29,7 @@ public class IdPrompt extends NumericPrompt{
 	}
 	
 	@Override
-	protected String getFailedValidationText(ConversationContext context,Number input) {
+	protected String getFailedValidationText(@NotNull ConversationContext context, @NotNull Number input) {
 		return Utils.color("&4 " + input + " is invalid id, please use a valid number!");
 	}
 

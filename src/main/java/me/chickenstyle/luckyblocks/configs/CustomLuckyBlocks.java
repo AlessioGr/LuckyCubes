@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class CustomLuckyBlocks {
 	
@@ -63,10 +64,10 @@ public class CustomLuckyBlocks {
 	 *
 	 */
 	static public ArrayList<LuckyCube> getLuckyCubes(){
-    	ArrayList<LuckyCube> list = new ArrayList<LuckyCube>();
-        	if (config.getConfigurationSection("LuckyCubes") == null) return new ArrayList<LuckyCube>();
-        	for (String path:config.getConfigurationSection("LuckyCubes").getKeys(false)) {
-        		int id = Integer.valueOf(path);
+    	ArrayList<LuckyCube> list = new ArrayList<>();
+        	if (config.getConfigurationSection("LuckyCubes") == null) return new ArrayList<>();
+        	for (String path: Objects.requireNonNull(config.getConfigurationSection("LuckyCubes")).getKeys(false)) {
+        		int id = Integer.parseInt(path);
         		list.add(getLuckyCubeByID(id));
         	}
         	return list;
@@ -74,8 +75,7 @@ public class CustomLuckyBlocks {
     	
     }
     
-    @SuppressWarnings("deprecation")
-	static public void addLuckyCube(LuckyCube lucky,HashMap<Character,ItemStack> map) {
+    static public void addLuckyCube(LuckyCube lucky,HashMap<Character,ItemStack> map) {
     		config = YamlConfiguration.loadConfiguration(file);
     		String path = "LuckyCubes." + lucky.getId();
     		
@@ -89,7 +89,7 @@ public class CustomLuckyBlocks {
     		try {
         		config.set(path + ".craftRecipe", lucky.getRecipe().getShape());
         		
-        		ArrayList<String> ingredients = new ArrayList<String>();
+        		ArrayList<String> ingredients = new ArrayList<>();
         		
         		for (char symbol:map.keySet()) {
         			if (map.get(symbol) != null && map.get(symbol).getType() != Material.AIR) {
@@ -111,12 +111,12 @@ public class CustomLuckyBlocks {
     		}
     }
     
-    @SuppressWarnings({ "deprecation", "unchecked" })
+    @SuppressWarnings({"unchecked" })
 	static public LuckyCube getLuckyCubeByID(int id) {
 		String path = "LuckyCubes." + id;
 		
 		String title = config.getString(path + ".title");
-		AnimationType type = AnimationType.valueOf(config.getString(path + ".animationType").toUpperCase());
+		AnimationType type = AnimationType.valueOf(Objects.requireNonNull(config.getString(path + ".animationType")).toUpperCase());
 		String texture = config.getString(path + ".texture");
 		ArrayList<String> lore = (ArrayList<String>) config.get(path + ".lore");
 		ArrayList<ItemStack> items = (ArrayList<ItemStack>) config.get(path + ".items");
@@ -126,13 +126,14 @@ public class CustomLuckyBlocks {
 		ShapedRecipe recipe = new ShapedRecipe(new NamespacedKey(Main.getInstance(),path),item);
 
 		
-		if (!config.get(path + ".craftRecipe").equals("none")) {
+		if (!Objects.equals(config.get(path + ".craftRecipe"), "none")) {
 			ArrayList<String> str = (ArrayList<String>) config.get(path + ".craftRecipe");
 			String[] someList = {};
+			assert str != null;
 			recipe.shape(str.toArray(someList));
 			
 			
-			for (String data: (ArrayList<String>)config.getList(path + ".ingredients")) {
+			for (String data: (ArrayList<String>) Objects.requireNonNull(config.getList(path + ".ingredients"))) {
 				char symbol = data.split(":")[0].charAt(0);
 				ItemStack mat = new ItemStack(Material.valueOf(data.split(":")[1].split(",")[0]));
 				recipe.setIngredient(symbol, mat.getType());
@@ -146,11 +147,8 @@ public class CustomLuckyBlocks {
     }
     	
     static public boolean hasLuckyCube(int id) {
-    	if (config.get("LuckyCubes." + id) != null) {
-    		return true;
-    	}
-    	return false;
-    }
+		return config.get("LuckyCubes." + id) != null;
+	}
 	
 	static public void reloadConfig() {
    	 config = YamlConfiguration.loadConfiguration(file);

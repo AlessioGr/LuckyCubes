@@ -2,14 +2,14 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 plugins {
     `java-library`
-    id ("com.github.johnrengelman.shadow") version "7.1.1"
-    id("io.papermc.paperweight.userdev") version "1.3.3"
+    id ("com.github.johnrengelman.shadow") version "7.1.2"
+    id("io.papermc.paperweight.userdev") version "1.3.6"
     id("xyz.jpenilla.run-paper") version "1.0.6" // Adds runServer and runMojangMappedServer tasks for testing
-    id("net.minecrell.plugin-yml.bukkit") version "0.5.1"
+    id("net.minecrell.plugin-yml.bukkit") version "0.5.2"
 }
 
 group = "me.chickenstyle.luckyblocks"
-version = "1.0.7"
+version = "1.0.8"
 java {
     toolchain.languageVersion.set(JavaLanguageVersion.of(17))
 }
@@ -26,10 +26,10 @@ repositories {
     }
 }
 dependencies {
-    paperDevBundle("1.18.1-R0.1-SNAPSHOT")
+    paperDevBundle("1.18.2-R0.1-SNAPSHOT")
 
     //Shaded
-    implementation("net.kyori:adventure-text-minimessage:4.10.0-SNAPSHOT") {
+    implementation("net.kyori:adventure-text-minimessage:4.11.0-SNAPSHOT") {
         exclude(group = "net.kyori", module = "adventure-api")
         exclude(group = "net.kyori", module = "adventure-bom")
     }

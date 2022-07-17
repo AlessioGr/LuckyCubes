@@ -62,7 +62,7 @@ public class CrateAnimation extends BukkitRunnable {
 			
 			ticks = ticks + 2;
 		} else {
-			if (runOnce == false) {
+			if (!runOnce) {
 				stand.setHelmet(new ItemStack(Material.AIR));
 				loc = stand.getLocation().clone().subtract(0,0.6,0);
 				stand.setRightArmPose(new EulerAngle(-(Math.PI / 2), -0.69, 0));
@@ -78,6 +78,7 @@ public class CrateAnimation extends BukkitRunnable {
 				Main.stands.add(text);
 				
 				String title = Main.getInstance().getConfig().getString("spinningAnimation.armortandTitle");
+				assert title != null;
 				title = title.replace("{player}", player.getName());
 				title = title.replace("{amount}", prize.getAmount() + "");
 				if (prize.getItemMeta().hasDisplayName()) {
@@ -109,7 +110,6 @@ public class CrateAnimation extends BukkitRunnable {
 				player.playSound(player.getLocation(), Utils.getChestCloseSound(), 1f, 1f);
 				cancel();
 				Main.opening.remove(player.getUniqueId());
-				return;
 			}
 		}
 	}

@@ -16,7 +16,7 @@ public class CloseInventory implements Listener{
 	public void onCloseInventory(InventoryCloseEvent e) {
 		Player player = (Player) e.getPlayer();
 		if (e.getInventory().getHolder() instanceof LuckyCubeHolder) {
-			if (Main.getInstance().getConfig().getBoolean("allowExitInGUI") == false) {
+			if (!Main.getInstance().getConfig().getBoolean("allowExitInGUI")) {
 				if (Main.opening.contains(player.getUniqueId())) {
 					new BukkitRunnable() {
 						
