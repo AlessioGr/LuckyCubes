@@ -4,12 +4,12 @@ plugins {
     `java-library`
     id ("com.github.johnrengelman.shadow") version "7.1.2"
     id("io.papermc.paperweight.userdev") version "1.3.6"
-    id("xyz.jpenilla.run-paper") version "1.0.6" // Adds runServer and runMojangMappedServer tasks for testing
+    id("xyz.jpenilla.run-paper") version "2.0.1" // Adds runServer and runMojangMappedServer tasks for testing
     id("net.minecrell.plugin-yml.bukkit") version "0.5.2"
 }
 
 group = "me.chickenstyle.luckyblocks"
-version = "1.0.8"
+version = "1.0.9"
 java {
     toolchain.languageVersion.set(JavaLanguageVersion.of(17))
 }
@@ -23,13 +23,14 @@ repositories {
             includeGroup("io.papermc.paper")
             includeGroup("net.kyori")
         }
-    }
+    };
+    maven("https://plugins.gradle.org/m2/")
 }
 dependencies {
-    paperDevBundle("1.18.2-R0.1-SNAPSHOT")
+    paperDevBundle("1.19.3-R0.1-SNAPSHOT")
 
     //Shaded
-    implementation("net.kyori:adventure-text-minimessage:4.11.0-SNAPSHOT") {
+    implementation("net.kyori:adventure-text-minimessage:4.12.0") {
         exclude(group = "net.kyori", module = "adventure-api")
         exclude(group = "net.kyori", module = "adventure-bom")
     }
@@ -73,9 +74,9 @@ tasks {
 bukkit {
     name = "LuckyCubes"
     main = "me.chickenstyle.luckyblocks.Main"
-    apiVersion = "1.18"
-    authors = listOf("ChickenStyle")
-    version = "1.0.7"
+    apiVersion = "1.19"
+    authors = listOf("ChickenStyle", "CECoffee")
+    version = "1.0.9"
     description = "implements cool luckyblocks to the game"
     commands {
         register("luckycubes") {
