@@ -5,8 +5,8 @@ import org.bukkit.World;
 import org.bukkit.inventory.ItemStack;
 
 public interface NMSHandler {
-	public ItemStack addLuckyBlockID(ItemStack item,int id);
-	public boolean isLuckyBlock(ItemStack item);
-	public int getLuckyBlockID(ItemStack item); 
-	public void playParticles(World world,Location loc,String particle,int amount);
+	ItemStack addLuckyBlockID(ItemStack item,int id);
+	boolean isLuckyBlock(ItemStack item);
+	int getLuckyBlockID(ItemStack item);
+	void playParticles(World world,Location loc,String particle,int amount);
 }

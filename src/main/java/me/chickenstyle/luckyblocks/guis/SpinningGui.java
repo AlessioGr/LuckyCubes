@@ -13,6 +13,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -49,7 +50,7 @@ public class SpinningGui {
 			
 			@Override
 			public void run() {
-				if (done == true) 
+				if (done)
 					return;
 				ticks++;
 				delay += 1/(20*seconds);
@@ -69,7 +70,7 @@ public class SpinningGui {
 							
 							@Override
 							public void run() {
-								Utils.givePrize(player, inv.getItem(13));
+								Utils.givePrize(player, Objects.requireNonNull(inv.getItem(13)));
 	
 								Main.opening.remove(player.getUniqueId());
 								player.updateInventory();

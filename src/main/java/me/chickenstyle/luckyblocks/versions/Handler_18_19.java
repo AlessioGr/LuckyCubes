@@ -5,16 +5,17 @@ import net.minecraft.nbt.CompoundTag;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.World;
-import org.bukkit.craftbukkit.v1_18_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_19_R2.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 
-public class Handler_1_18_R1 implements NMSHandler {
+public class Handler_18_19 implements NMSHandler {
 	
 	@Override
 	public ItemStack addLuckyBlockID(ItemStack item,int id) {
 		net.minecraft.world.item.ItemStack nmsItem = CraftItemStack.asNMSCopy(item);
 		CompoundTag itemCompound = (nmsItem.hasTag()) ? nmsItem.getTag() : new CompoundTag();
 
+		assert itemCompound != null;
 		itemCompound.putInt("LuckyID", id);
 		nmsItem.setTag(itemCompound);
 		return CraftItemStack.asBukkitCopy(nmsItem);
@@ -24,16 +25,15 @@ public class Handler_1_18_R1 implements NMSHandler {
 	public boolean isLuckyBlock(ItemStack item) {
 		net.minecraft.world.item.ItemStack nmsItem = CraftItemStack.asNMSCopy(item);
 		CompoundTag itemCompound = (nmsItem.hasTag()) ? nmsItem.getTag() : new CompoundTag();
-		if (itemCompound.contains("LuckyID")) {
-			return true;
-		}
-		return false;
+		assert itemCompound != null;
+		return itemCompound.contains("LuckyID");
 	}
 
 	@Override
 	public int getLuckyBlockID(ItemStack item) {
 		net.minecraft.world.item.ItemStack nmsItem = CraftItemStack.asNMSCopy(item);
 		CompoundTag itemCompound = (nmsItem.hasTag()) ? nmsItem.getTag() : new CompoundTag();
+		assert itemCompound != null;
 		return itemCompound.getInt("LuckyID");
 	}
 	

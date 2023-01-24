@@ -57,7 +57,8 @@ public class PlaceBlockEvent implements Listener{
 		Player player = e.getPlayer();
 		
 		if (e.getAction() != Action.RIGHT_CLICK_AIR && e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
-		if (player.getItemInHand() != null && !player.getItemInHand().getType().equals(Material.AIR)) {
+		player.getItemInHand();
+		if (!player.getItemInHand().getType().equals(Material.AIR)) {
 			if (Main.getVersionHandler().isLuckyBlock(player.getItemInHand())) {
 				e.setCancelled(true);
 				int id = Main.getVersionHandler().getLuckyBlockID(player.getItemInHand());
@@ -78,7 +79,7 @@ public class PlaceBlockEvent implements Listener{
 						}
 					}
 					long now = System.currentTimeMillis();
-					long tenMillis = Main.getInstance().getConfig().getInt("cooldownTime") * 1000;
+					long tenMillis = Main.getInstance().getConfig().getInt("cooldownTime") * 1000L;
 					long nowPlusTen = now + tenMillis;
 					
 					cooldown.put(player.getUniqueId(), nowPlusTen);

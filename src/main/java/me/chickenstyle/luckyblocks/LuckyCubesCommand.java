@@ -11,20 +11,20 @@ import org.bukkit.conversations.Conversation;
 import org.bukkit.conversations.ConversationFactory;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
 public class LuckyCubesCommand implements CommandExecutor {
 
 	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
 		if (args.length >= 1) {
 			switch (args[0].toLowerCase()) {
 			case "addluckycube":
-				if (sender instanceof Player) {
-					Player player = (Player) sender;
-					if (player.hasPermission("LuckyCubes.Admin") || player.hasPermission("LuckyCubes." + args[0].toString().toLowerCase())) {
-						Main.creatingLuckyCube.put(player.getUniqueId(), new LuckyCube(0, "", null, "", new ArrayList<String>(), null, null));
+				if (sender instanceof Player player) {
+					if (player.hasPermission("LuckyCubes.Admin") || player.hasPermission("LuckyCubes." + args[0].toLowerCase())) {
+						Main.creatingLuckyCube.put(player.getUniqueId(), new LuckyCube(0, "", null, "", new ArrayList<>(), null, null));
 						ConversationFactory factory = new ConversationFactory(Main.getInstance());
 						Conversation conversation = factory.withFirstPrompt(new IdPrompt()).withLocalEcho(true).buildConversation(player);
 						conversation.begin();
@@ -36,7 +36,7 @@ public class LuckyCubesCommand implements CommandExecutor {
 			break;
 			
 			case "reload":
-				if (sender.hasPermission("LuckyCubes.Admin") || sender.hasPermission("LuckyCubes." + args[0].toString().toLowerCase())) {
+				if (sender.hasPermission("LuckyCubes.Admin") || sender.hasPermission("LuckyCubes." + args[0].toLowerCase())) {
 					CustomLuckyBlocks.reloadConfig();
 					Main.getInstance().saveConfig();
 					Main.getInstance().reloadConfig();
@@ -49,16 +49,17 @@ public class LuckyCubesCommand implements CommandExecutor {
 			break;
 			
 			case "give":
-				if (sender.hasPermission("LuckyCubes.Admin") || sender.hasPermission("LuckyCubes." + args[0].toString().toLowerCase())) {
+				if (sender.hasPermission("LuckyCubes.Admin") || sender.hasPermission("LuckyCubes." + args[0].toLowerCase())) {
 					if (args.length == 4) {
 						if (Bukkit.getServer().getOnlinePlayers().contains(Bukkit.getPlayer(args[1]))) {
 							if (isInt(args[2])) {
-								if (CustomLuckyBlocks.hasLuckyCube(Integer.valueOf(args[2]))) {
+								if (CustomLuckyBlocks.hasLuckyCube(Integer.parseInt(args[2]))) {
 									if (isInt(args[3])) {
 										Player target = Bukkit.getPlayer(args[1]);
-										LuckyCube cube = CustomLuckyBlocks.getLuckyCubeByID(Integer.valueOf(args[2]));		
+										LuckyCube cube = CustomLuckyBlocks.getLuckyCubeByID(Integer.parseInt(args[2]));
 										ItemStack cubes = Utils.createLuckyCube(cube);
-										cubes.setAmount(Integer.valueOf(args[3]));
+										cubes.setAmount(Integer.parseInt(args[3]));
+										assert target != null;
 										if (target.getInventory().firstEmpty() != -1) {
 											target.getInventory().addItem(cubes);
 										} else {
@@ -92,7 +93,7 @@ public class LuckyCubesCommand implements CommandExecutor {
 			break;
 			
 			case "help":
-				if (sender.hasPermission("LuckyCubes.Admin") || sender.hasPermission("LuckyCubes." + args[0].toString().toLowerCase())) {
+				if (sender.hasPermission("LuckyCubes.Admin") || sender.hasPermission("LuckyCubes." + args[0].toLowerCase())) {
 					sender.sendMessage(Utils.color("&f----------[LuckyCubes]----------"));
 					sender.sendMessage(ChatColor.WHITE + "/lc give {player} {luckycube_id}");
 					sender.sendMessage(ChatColor.WHITE + "");

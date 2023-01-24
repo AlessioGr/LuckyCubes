@@ -7,11 +7,12 @@ import org.bukkit.conversations.ConversationContext;
 import org.bukkit.conversations.Prompt;
 import org.bukkit.conversations.StringPrompt;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 public class TexturePrompt extends StringPrompt{
 	
 	@Override
-	public String getPromptText(ConversationContext context) {
+	public @NotNull String getPromptText(ConversationContext context) {
 		return Utils.color("&7Enter a luckyblock's texture\n (to get the texture go to &6https://minecraft-heads.com/custom-heads &7 \n"
 				+ "choose a texture,"
 				+ "copy the 'Minecraft-URL' part and paste it here)");

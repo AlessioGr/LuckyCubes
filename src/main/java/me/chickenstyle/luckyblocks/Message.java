@@ -11,7 +11,7 @@ public enum Message {
     COOLDOWN(color(getString("messages.cooldown"))),
     PLACE_ON_GROUND(color(getString("messages.placeOnGround"))),
 	DISABLE_COMMAND(color(getString("messages.disableCommandUse")));
-    private String error;
+    private final String error;
 
     Message(String error) {
         this.error = error;

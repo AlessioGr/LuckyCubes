@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class CreateRecipeGui {
 	public CreateRecipeGui(Player player) {
-		ArrayList<Integer> emptySlots = new ArrayList<Integer>();
+		ArrayList<Integer> emptySlots = new ArrayList<>();
 		emptySlots.add(12);
 		emptySlots.add(13);
 		emptySlots.add(14);
